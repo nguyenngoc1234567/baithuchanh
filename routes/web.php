@@ -31,6 +31,9 @@ Route::get('/user', function () {
 Route::get('/user-name/{name?}', function ($name = 'Sohel') {
     echo "<h2>User name is $name</h2>";
 });
+Route::get('/', function () {
+    return view('index');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,3 +51,18 @@ Route::post('bai_tap', function (Illuminate\Http\Request $request) {
 Route::get('create', [PostController::class,'create']);
 Route::post('store', [PostController::class,'store'])->name('store');
 Route::get('custom-validation', [FormController::class, 'checkValidation'])->name('form.submit');
+
+Route::get('/{timezone?}', function ($timezone = null) {
+    if (!empty($timezone)) {
+
+        // Khởi tạo giá trị giờ theo múi giờ UTC
+        $time = new DateTime(date('Y-m-d H:i:s'), new DateTimeZone('UTC'));
+
+        // Thay đổi về múi giờ được chọn
+        $time->setTimezone(new DateTimeZone(str_replace('-', '/', $timezone)));
+
+        // Hiển thị giờ theo định dạng mong muốn
+        echo 'Múi giờ bạn chọn ' . $timezone . ' hiện tại đang là: ' . $time->format('d-m-Y H:i:s');
+    }
+    return view('index');
+});

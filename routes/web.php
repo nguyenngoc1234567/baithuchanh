@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,4 @@ Route::post('bai_tap', function (Illuminate\Http\Request $request) {
 });
 Route::get('create', [PostController::class,'create']);
 Route::post('store', [PostController::class,'store'])->name('store');
+Route::get('custom-validation', [FormController::class, 'checkValidation'])->name('form.submit');
